@@ -15,8 +15,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "classnames": "^2.2.6",
-    "lodash": "^4.17.10",
-    "react-modal": "^3.5.1"
+    "lodash": "^4.17.10"
   }
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindAll } from 'lodash';
 import Slider from 'rc-slider';
-import classNames from 'classnames';
 import logo from './logo.svg';
 import './App.css';
 

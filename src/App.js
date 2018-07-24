@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { bindAll } from 'lodash';
+import classNames from 'classnames';
 import Slider from 'rc-slider';
-import logo from './logo.svg';
 import './App.css';
 
 const defaultColors = ['#fc4144', '#fd9251', '#fed831', '#21ce83', '#2af3fd', '#4476fb', '#983dd0', '#000000', '#ffffff'];
@@ -81,7 +80,7 @@ class App extends Component {
       return (
         <label
           className={classNames("color-item", {
-            ["active"]: item === rgbValue
+            "active": item === rgbValue
           })}
           key={`default-color-${item}-${idx}`}
           style={{ backgroundColor: item }}
@@ -126,7 +125,7 @@ class App extends Component {
   onSatSliderChange(value) {
     const { hPickerValue, bPickerValue } = this.state;
     // 将hsv转换为rgb颜色
-    this.hsvToRgb(this.state.hPickerValue / 360, value / 100, bPickerValue / 100);
+    this.hsvToRgb(hPickerValue / 360, value / 100, bPickerValue / 100);
     // 存储状态
     this.setState({
       sPickerValue: value
@@ -141,7 +140,7 @@ class App extends Component {
   onBriSliderChange(value) {
     const { hPickerValue, sPickerValue } = this.state;
     // 将hsv转换为rgb颜色
-    this.hsvToRgb(this.state.hPickerValue / 360, sPickerValue / 100, value / 100);
+    this.hsvToRgb(hPickerValue / 360, sPickerValue / 100, value / 100);
     // 存储状态
     this.setState({
       bPickerValue: value
@@ -228,10 +227,11 @@ class App extends Component {
         case r: h = (g - b) / difference + (g < b ? 6 : 0); break;
         case g: h = 2.0 + (v - r) / difference; break;
         case b: h = 4.0 + (r - g) / difference; break;
+        default: break;
       }
       h = Math.round(h * 60);
     }
-    if (max == 0) {
+    if (max === 0) {
       s = 0;
     } else {
       s = 1 - min / max;
@@ -268,9 +268,8 @@ class App extends Component {
   hexToRgb(hex) {
     const color = [];
     const rgb = [];
-    const sliderValues = [];
     hex = hex.replace(/#/, "");
-    if (hex.length == 3) {
+    if (hex.length === 3) {
       const tmp = [];
       for (var i = 0; i < 3; i++) {
         tmp.push(hex.charAt(i) + hex.charAt(i));
@@ -279,13 +278,12 @@ class App extends Component {
     }
     for (let i = 0; i < 3; i += 1) {
       color[i] = "0x" + hex.substr(i * 2, 2);
-      rgb.push(parseInt(Number(color[i])));
+      rgb.push(parseInt(Number(color[i]), 10));
     }
     this.rgbToHsb(rgb[0], rgb[1], rgb[2]);
   }
   render() {
     const { hPickerValue, sPickerValue, bPickerValue, rgbValue } = this.state;
-    const { onOk, onHide } = this.props;
     return (
       <section className="content">
         <div className="color-picker">
